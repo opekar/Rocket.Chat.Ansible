@@ -45,7 +45,7 @@
 
 - name: Setup script in cron.daily [Let's Encrypt!]
   copy:
-    dest: /etc/cron.monthly/acme-tiny_renew.sh
+    dest: /etc/cron.monthly/acme-tiny_renew
     mode: 0755
     content: |
       #!/bin/bash
@@ -59,7 +59,7 @@
       nginx -t && nginx -s reload
 
 - name: Run acme-tiny_renew.sh (first run cert creation) [Let's Encrypt!]
-  shell: /etc/cron.monthly/acme-tiny_renew.sh
+  shell: /etc/cron.monthly/acme-tiny_renew
   notify: Reload the Nginx service
   when: (csr_gen_result is changed)
          or (rocket_chat_letsencrypt_force_renew | bool)
